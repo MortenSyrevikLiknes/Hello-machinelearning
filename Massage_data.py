@@ -1,13 +1,9 @@
-import pandas as pd
+
 import re
 import numpy as np
 import matplotlib.pyplot as plt
 import csv
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report
-from sklearn.metrics import confusion_matrix
-from sklearn.metrics import accuracy_score
-from sklearn.svm import SVC
+
 
 x= []
 
@@ -44,10 +40,9 @@ plt.title("Dataset")
 for i in range(len(y[0])):
     plt.plot(z,[pt[i] for pt in y])
 plt.legend()
-#plt.show()
+plt.show()
 
 with open("values.csv",'w',newline='') as myfile:
     wr = csv.writer(myfile,quoting=csv.QUOTE_ALL)
     wr.writerows(x)
-
 

@@ -2,6 +2,7 @@ import pandas as pd
 import re
 import numpy as np
 import matplotlib.pyplot as plt
+import csv
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
@@ -19,9 +20,20 @@ for path in paths:
     dataFile.close()
     for frame in dataset:  
         datapoints=re.findall(r"\D\d[.]\d\d\d",frame)
-        frameData= []
+        frameData= []       
+        flowtype= re.findall(r"",path)
         for data in datapoints:
             frameData.append(float(data))
+        if "Annular" in path:
+            frameData.append("Annular")
+        if "Plug" in path:
+            frameData.append("Plug")
+        if "Slug" in path:
+            frameData.append("Slug")
+        if "Stratified" in path:
+            frameData.append("Stratified")
+        if "Wavy" in path:
+            frameData.append("Wavy")
         x.append(frameData)
 
 z = np.linspace(1,x.__len__(),x.__len__())
@@ -32,7 +44,10 @@ plt.title("Dataset")
 for i in range(len(y[0])):
     plt.plot(z,[pt[i] for pt in y])
 plt.legend()
-plt.show()
+#plt.show()
 
-#file.close()
+with open("values.csv",'w',newline='') as myfile:
+    wr = csv.writer(myfile,quoting=csv.QUOTE_ALL)
+    wr.writerows(x)
+
 
